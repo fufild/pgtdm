@@ -1,8 +1,8 @@
-# PostgreSQL Table Data Masker (pgtdm)
+# PostgreSQL Test Data Manager (pgtdm)
 
 ## Overview
 
-The PostgreSQL Table Data Masker (pgtdm) is an open-source tool designed to anonymize sensitive data from PostgreSQL database exports while preserving the structure of the data. It is particularly useful for creating sanitized datasets for development, testing, or analytics purposes. The tool supports PostgreSQL `COPY` blocks, like those from pg_dump, and relies on configurable anonymization rules defined in a JSON file.
+The PostgreSQL Test Data Manager (pgtdm) is an open-source tool designed to anonymize sensitive data from PostgreSQL database exports while preserving the structure of the data. It is particularly useful for creating sanitized datasets for development, testing, or analytics purposes. The tool supports PostgreSQL `COPY` blocks, like those from pg_dump, and relies on configurable anonymization rules defined in a JSON file.
 
 ## Features
 
