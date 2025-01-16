@@ -27,7 +27,7 @@ The PostgreSQL Table Data Masker (pgtdm) is an open-source tool designed to anon
    ```
 2. Build the project:
    ```bash
-   go build -o pgtdm
+   make build
    ```
 
 ## Usage
