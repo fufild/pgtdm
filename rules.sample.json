@@ -1,0 +1,40 @@
+
+{
+    "public.users": [
+        "email",
+        "username",
+        "phone",
+        "address",
+        "password",
+        "first_name",
+        "last_name",
+        "last_4:pin",
+        "ssn"
+    ],
+    "public.companies": [
+        "name:company_name",
+        "zip_code:zip",
+        "address_1:street",
+        "address_2:street_2",
+        "city",
+        "state",
+        "ein",
+        "email",
+        "phone",
+        "secondary_phone:phone",
+        "display_name:company_name"
+    ],
+    "public.email_notifications": [
+        "email"
+    ],
+    "public.login_history": [
+        "ip"
+    ],
+    "public.tokens": [
+        "access_token:uuid",
+        "refresh_token:uuid"
+    ],
+    "public.tos_agreed": [
+        "ip_address"
+    ]
+}
