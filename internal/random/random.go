@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/alexmgriffiths/pgtdm/internal/logging"
+	"github.com/fufild/pgtdm/internal/logging"
 	"github.com/gofrs/uuid"
 )
 

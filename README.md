@@ -22,7 +22,7 @@ The PostgreSQL Test Data Manager (pgtdm) is an open-source tool designed to anon
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/alexmgriffiths/pgtdm.git
+   git clone https://github.com/fufild/pgtdm.git
    cd pgtdm
    ```
 2. Build the project:
@@ -132,4 +132,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 
 ## Contact
 
-For questions or support, please open an issue on the [GitHub repository](https://github.com/alexmgriffiths/pgtdm)
+For questions or support, please open an issue on the [GitHub repository](https://github.com/fufild/pgtdm)

@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/alexmgriffiths/pgtdm/internal/file"
-	"github.com/alexmgriffiths/pgtdm/internal/logging"
-	"github.com/alexmgriffiths/pgtdm/internal/random"
+	"github.com/fufild/pgtdm/internal/file"
+	"github.com/fufild/pgtdm/internal/logging"
+	"github.com/fufild/pgtdm/internal/random"
 )
 
 type Anonymizer struct {

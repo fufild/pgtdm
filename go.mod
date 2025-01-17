@@ -1,4 +1,4 @@
-module github.com/alexmgriffiths/pgtdm
+module github.com/fufild/pgtdm
 
 go 1.21.5
 

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/alexmgriffiths/pgtdm/internal/anonymizer"
-	"github.com/alexmgriffiths/pgtdm/internal/file"
-	"github.com/alexmgriffiths/pgtdm/internal/logging"
+	"github.com/fufild/pgtdm/internal/anonymizer"
+	"github.com/fufild/pgtdm/internal/file"
+	"github.com/fufild/pgtdm/internal/logging"
 )
 
 func main() {
