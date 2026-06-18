@@ -55,10 +55,17 @@ func (a *Anonymizer) LoadSubstitutions(path string) error {
 		if os.IsNotExist(err) {
 			return nil
 		}
-		return fmt.Errorf("failed to read substitution map: %v", err)
+		return fmt.Errorf("failed to read substitution map: %w", err)
+	}
+	if len(strings.TrimSpace(string(data))) == 0 {
+		return nil // empty file (e.g. a freshly created temp map): nothing to load
 	}
 	if err := json.Unmarshal(data, &a.substitutions); err != nil {
-		return fmt.Errorf("failed to parse substitution map: %v", err)
+		return fmt.Errorf("failed to parse substitution map: %w", err)
+	}
+	if a.substitutions == nil {
+		// A literal `null` in the file unmarshals to a nil map; keep it writable.
+		a.substitutions = map[string]string{}
 	}
 	return nil
 }
@@ -71,10 +78,10 @@ func (a *Anonymizer) SaveSubstitutions(path string) error {
 	}
 	data, err := json.MarshalIndent(a.substitutions, "", "  ")
 	if err != nil {
-		return fmt.Errorf("failed to encode substitution map: %v", err)
+		return fmt.Errorf("failed to encode substitution map: %w", err)
 	}
 	if err := os.WriteFile(path, data, 0o600); err != nil {
-		return fmt.Errorf("failed to write substitution map: %v", err)
+		return fmt.Errorf("failed to write substitution map: %w", err)
 	}
 	return nil
 }
