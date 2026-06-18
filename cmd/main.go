@@ -15,6 +15,7 @@ func main() {
 	inputFile := flag.String("input", "", "Input file")
 	outputFile := flag.String("output", "./output.txt", "Output file")
 	rulesFile := flag.String("rules", "./rules.json", "Path to JSON rules file")
+	mapFile := flag.String("map", "", "Path to a persistent substitution map (JSON). Loaded before and saved after the run, so repeated runs map the same originals to the same anonymized values (preserves cross-database joins).")
 	flag.Parse()
 
 	if len(*inputFile) == 0 {
@@ -34,7 +35,15 @@ func main() {
 	defer file.Close()
 
 	anonymizer := anonymizer.NewAnonymizer(file, *outputFile, rules)
-	anonymizer.Anonymize()
+	if err := anonymizer.LoadSubstitutions(*mapFile); err != nil {
+		logging.FatalError("Failed to load substitution map: %v", err)
+	}
+	if err := anonymizer.Anonymize(); err != nil {
+		logging.FatalError("Anonymization failed: %v", err)
+	}
+	if err := anonymizer.SaveSubstitutions(*mapFile); err != nil {
+		logging.FatalError("Failed to save substitution map: %v", err)
+	}
 	fmt.Printf("Data anonymized successfully.\nAnonymized %d values to %s\n", anonymizer.AnonymizedValueCount, anonymizer.OutputPath)
 }
 

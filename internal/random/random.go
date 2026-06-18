@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"math/rand"
+	"strconv"
 	"strings"
 	"time"
 
@@ -99,10 +100,6 @@ func Pin() string {
 	return fmt.Sprintf("%04d", seedRand.Intn(9999)+1000)
 }
 
-func SSN() string {
-	return fmt.Sprintf("%03d-%02d-%04d", seedRand.Intn(900)+100, seedRand.Intn(100), seedRand.Intn(10000))
-}
-
 func CompanyName() string {
 	return fmt.Sprintf("%s Corp", LastName())
 }
@@ -133,6 +130,23 @@ func UUID() string {
 		logging.FatalError("Failed to generate UUID: %v", err)
 	}
 	return newId.String()
+}
+
+// RoutingNumber generates a 9-digit US ABA routing number whose final digit
+// is a valid checksum (weights 3,7,1 repeating, weighted sum ≡ 0 mod 10).
+func RoutingNumber() string {
+	d := make([]int, 9)
+	for i := 0; i < 8; i++ {
+		d[i] = seedRand.Intn(10)
+	}
+	weightedSum := 3*(d[0]+d[3]+d[6]) + 7*(d[1]+d[4]+d[7]) + (d[2] + d[5])
+	d[8] = (10 - weightedSum%10) % 10
+
+	var sb strings.Builder
+	for _, digit := range d {
+		sb.WriteString(strconv.Itoa(digit))
+	}
+	return sb.String()
 }
 
 func IPAddress() string {

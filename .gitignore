@@ -1,5 +1,7 @@
 *.sql
 cover*
 pgtdm
-rules.json
 .DS_Store
+
+rules.json
+auth_rules.json

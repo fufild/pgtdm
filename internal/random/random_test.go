@@ -59,11 +59,6 @@ func TestPin(t *testing.T) {
 	assert.Regexp(t, `^\d{4}$`, pin, "PIN should be a 4-digit number.")
 }
 
-func TestSSN(t *testing.T) {
-	ssn := SSN()
-	assert.Regexp(t, `^\d{3}-\d{2}-\d{4}$`, ssn, "SSN should match the format XXX-XX-XXXX.")
-}
-
 func TestCompanyName(t *testing.T) {
 	company := CompanyName()
 	assert.NotEmpty(t, company)
@@ -83,6 +78,18 @@ func TestBankName(t *testing.T) {
 func TestUUID(t *testing.T) {
 	uuid := UUID()
 	assert.Regexp(t, `^[a-f0-9\-]+$`, uuid, "UUID should match the expected format.")
+}
+
+func TestRoutingNumber(t *testing.T) {
+	routing := RoutingNumber()
+	assert.Regexp(t, `^\d{9}$`, routing, "Routing number should be a 9-digit number.")
+
+	d := make([]int, 9)
+	for i, c := range routing {
+		d[i] = int(c - '0')
+	}
+	weightedSum := 3*(d[0]+d[3]+d[6]) + 7*(d[1]+d[4]+d[7]) + 1*(d[2]+d[5]+d[8])
+	assert.Equal(t, 0, weightedSum%10, "Routing number should have a valid ABA checksum.")
 }
 
 func TestIPAddress(t *testing.T) {
