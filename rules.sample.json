@@ -12,7 +12,6 @@
         "ssn"
     ],
     "public.companies": [
-        "name:company_name",
         "zip_code:zip",
         "address_1:street",
         "address_2:street_2",
@@ -21,8 +20,7 @@
         "ein",
         "email",
         "phone",
-        "secondary_phone:phone",
-        "display_name:company_name"
+        "secondary_phone:phone"
     ],
     "public.email_notifications": [
         "email"
