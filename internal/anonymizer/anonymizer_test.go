@@ -113,4 +113,5 @@ func TestAnonymizeFullPipelineAnonymizesFinchAccessToken(t *testing.T) {
 	assert.Equal(t, "tok-1", row[0], "id should pass through unchanged")
 	assert.Equal(t, "finch", row[2], "application discriminator should pass through unchanged")
 	assert.NotEqual(t, originalAccessToken, row[5], "the finch access_token must be anonymized")
+	assert.Regexp(t, `^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`, row[5], "the anonymized access_token should be a UUID, not empty or NULL")
 }
