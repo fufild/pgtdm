@@ -97,7 +97,7 @@ func Number(length int) int {
 }
 
 func Pin() string {
-	return fmt.Sprintf("%04d", seedRand.Intn(9999)+1000)
+	return fmt.Sprintf("%04d", seedRand.Intn(9000)+1000) // 1000..9999: always four digits
 }
 
 func CompanyName() string {
