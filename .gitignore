@@ -3,9 +3,11 @@ cover*
 pgtdm
 .DS_Store
 
-# Real anonymizer rules stay local; only rules.sample.json is committed.
-# The pattern covers every <db>_rules.json (auth, users, notifications, and any
-# future one such as chat) so a newly added DB's rules can't be committed by
-# accident — rules.sample.json does not match it and stays tracked.
+# Real anonymizer rules live in rules/ and stay local; only rules/rules.sample.json
+# is committed. The patterns are deliberately unanchored so they match at any
+# depth: every <db>_rules.json (auth, users, notifications, and any future one
+# such as chat) is ignored whether it lands in rules/ or is left at the repo
+# root, so a newly added DB's rules can't be committed by accident.
+# rules.sample.json matches neither pattern and stays tracked.
 rules.json
 *_rules.json

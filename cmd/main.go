@@ -14,7 +14,7 @@ import (
 func main() {
 	inputFile := flag.String("input", "", "Input file")
 	outputFile := flag.String("output", "./output.txt", "Output file")
-	rulesFile := flag.String("rules", "./rules.json", "Path to JSON rules file")
+	rulesFile := flag.String("rules", "./rules/rules.json", "Path to JSON rules file")
 	mapFile := flag.String("map", "", "Path to a persistent substitution map (JSON). Loaded before and saved after the run, so repeated runs map the same originals to the same anonymized values (preserves cross-database joins). WARNING: this file's keys are the original sensitive values (emails/phones); it is written 0600 — store and dispose of it accordingly.")
 	flag.Parse()
 

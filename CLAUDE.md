@@ -21,11 +21,11 @@ make clean      # removes binary + coverage artifacts
 
 go test -race ./...   # run with race detector (not in Makefile; use before commits)
 
-./pgtdm --input=dump.sql --output=anonymized.sql --rules=rules.json
+./pgtdm --input=dump.sql --output=anonymized.sql --rules=rules/rules.json
 ```
 
 Flags: `--input` (required), `--output` (default `./output.txt`), `--rules`
-(default `./rules.json`). The input file's name/extension is irrelevant — only
+(default `./rules/rules.json`). The input file's name/extension is irrelevant — only
 its contents (PostgreSQL `COPY` format) matter.
 
 ## Architecture
@@ -51,7 +51,7 @@ anonymizer. Three internal packages:
 
 ## How rules work
 
-`rules.json`: keys are table names (e.g. `public.users`), values are arrays of
+`rules/rules.json` (template: `rules/rules.sample.json`; every real rules file in `rules/` is gitignored): keys are table names (e.g. `public.users`), values are arrays of
 column rules. A rule is either:
 
 - **Implicit** — column name doubles as the strategy: `"email"`, `"phone"`.
@@ -65,7 +65,7 @@ an unknown strategy returns an error and aborts the run.
 
 ## Critical behavior to keep in mind
 
-- **Allowlist model.** Only columns listed in `rules.json` are touched.
+- **Allowlist model.** Only columns listed in the rules file are touched.
   Everything else — every table not in the rules, every column not listed — is
   copied through **verbatim and silently**. There is no warning for unlisted
   tables/columns, and a rule naming a column that doesn't exist in the dump is
