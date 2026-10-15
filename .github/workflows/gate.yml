@@ -1,0 +1,62 @@
+name: CI
+
+# The single required check for this repository. The org ruleset on `main`
+# requires a status check named `gate` and knows nothing else about this
+# repo; what `gate` means is decided here. Adding a check to this repo is a
+# change to this file, never to a ruleset.
+#
+# Today `gate` means: every package builds, passes `go vet` and the test suite
+# passes under the race detector. There is no image to build — pgtdm is a CLI
+# run by hand.
+#
+# Copied from grpc-migration-scripts' gate.yml (the Go-tool variant); the one
+# deliberate difference is the Test step, because this repo has tests.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build
+        run: go build ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test -race ./...
+
+  gate:
+    # The one check the ruleset requires. always() so a failed or cancelled
+    # dependency makes this job fail rather than skip; a skipped required
+    # check would leave the PR waiting forever instead of showing red.
+    needs: [go]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate
+        run: |
+          echo "go=${{ needs.go.result }}"
+          test "${{ needs.go.result }}" = "success"

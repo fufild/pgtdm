@@ -34,21 +34,21 @@ The PostgreSQL Test Data Manager (pgtdm) is an open-source tool designed to anon
 
 ### Command-Line Arguments
 
-| Flag       | Description                        | Default        |
-| ---------- | ---------------------------------- | -------------- |
-| `--input`  | Path to the input file (required). | None           |
-| `--output` | Path to the output file.           | `./output.txt` |
-| `--rules`  | Path to the JSON rules file.       | `./rules.json` |
+| Flag       | Description                        | Default              |
+| ---------- | ---------------------------------- | -------------------- |
+| `--input`  | Path to the input file (required). | None                 |
+| `--output` | Path to the output file.           | `./output.txt`       |
+| `--rules`  | Path to the JSON rules file.       | `./rules/rules.json` |
 
 ### Example Command
 
 ```bash
-./pgtdm --input=sample.sql --output=anonymized.sql --rules=rules.json
+./pgtdm --input=sample.sql --output=anonymized.sql --rules=rules/rules.json
 ```
 
 ### JSON Rules File Format
 
-Define the anonymization rules in a JSON file. Each key represents a table, and each value is an array of columns to anonymize. Specify replacement types using `:`. For example:
+Rules files live in the `rules/` directory; copy `rules/rules.sample.json` to `rules/rules.json` to get started (real rules files are gitignored, only the sample is committed). Each key represents a table, and each value is an array of columns to anonymize. Specify replacement types using `:`. For example:
 
 ```json
 {
