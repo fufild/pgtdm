@@ -67,7 +67,7 @@ func TestCompanyName(t *testing.T) {
 
 func TestEIN(t *testing.T) {
 	ein := EIN()
-	assert.Regexp(t, `^\d{2}-\d{7}$`, ein, "EIN should match the format XX-XXXXXXX.")
+	assert.Regexp(t, `^\d{9}$`, ein, "EIN should be nine digits.")
 }
 
 func TestBankName(t *testing.T) {
