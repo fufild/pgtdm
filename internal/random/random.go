@@ -105,7 +105,7 @@ func CompanyName() string {
 }
 
 func EIN() string {
-	return fmt.Sprintf("%02d-%07d", seedRand.Intn(90)+10, seedRand.Intn(10000000))
+	return fmt.Sprintf("%02d%07d", seedRand.Intn(90)+10, seedRand.Intn(10000000))
 }
 
 func BankName() string {
