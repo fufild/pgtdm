@@ -66,8 +66,14 @@ func TestCompanyName(t *testing.T) {
 }
 
 func TestEIN(t *testing.T) {
-	ein := EIN()
-	assert.Regexp(t, `^\d{9}$`, ein, "EIN should be nine digits.")
+	seen := map[string]bool{}
+	for i := 0; i < 5000; i++ {
+		ein := EIN()
+		assert.Regexp(t, `^\d{9}$`, ein, "EIN should be nine digits.")
+		assert.NotRegexp(t, `^(00|07|08|09|17|18|19|28|29|49|69|70|78|79|89|96|97)`, ein, "EIN prefix should be one the IRS assigns.")
+		seen[ein[:2]] = true
+	}
+	assert.Len(t, seen, len(validEINPrefixes), "EIN should draw every assigned prefix.")
 }
 
 func TestBankName(t *testing.T) {
