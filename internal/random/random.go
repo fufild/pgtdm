@@ -104,8 +104,21 @@ func CompanyName() string {
 	return fmt.Sprintf("%s Corp", LastName())
 }
 
+// invalidEINPrefixes are the first two digits the IRS does not assign.
+var invalidEINPrefixes = map[int]bool{0: true, 7: true, 8: true, 9: true, 17: true, 18: true, 19: true, 28: true, 29: true, 49: true, 69: true, 70: true, 78: true, 79: true, 89: true, 96: true, 97: true}
+
+var validEINPrefixes = func() []int {
+	var prefixes []int
+	for p := 0; p < 100; p++ {
+		if !invalidEINPrefixes[p] {
+			prefixes = append(prefixes, p)
+		}
+	}
+	return prefixes
+}()
+
 func EIN() string {
-	return fmt.Sprintf("%02d-%07d", seedRand.Intn(90)+10, seedRand.Intn(10000000))
+	return fmt.Sprintf("%02d%07d", validEINPrefixes[seedRand.Intn(len(validEINPrefixes))], seedRand.Intn(10000000))
 }
 
 func BankName() string {
